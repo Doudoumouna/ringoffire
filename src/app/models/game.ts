@@ -18,6 +18,18 @@ export class Game {
     this.shuffle(this.stack);
   }
 
+  public toJson() {
+    return {
+      players: this.players,
+      stack: this.stack,
+      playedCards: this.playedCards,
+      currentPlayer: this.currentPlayer,
+      player_images: this.player_images,
+      pickCardAnimation: this.pickCardAnimation,
+      currentCard: this.currentCard,
+    };
+  }
+
   private shuffle(array: any[]): void {
     let currentIndex = array.length,
       randomIndex;

@@ -1,8 +1,9 @@
 .start-screen {
-  background-color: #404040;
-  width: 100vw;
-  height: 100vh;
-  max-width: 100%;
+  background-image: url("/assets/img/board2.jpg");
+
+  width: 100%;
+  height: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,24 +12,25 @@
     overflow: hidden;
   }
   img {
-    height: 100vh;
+    height: 70vh;
+    width: 70vw;
   }
 }
 
 .start-label-box {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
-  bottom: 10px;
+  bottom: 470px;
   display: flex;
   justify-content: center;
 
   img {
-    width: 5vw;
-    height: auto;
+    width: 60px;
+    height: 60px;
 
     @media (max-width: 960px) {
-      width: 400px;
+      width: 60px;
     }
 
     &:hover {
@@ -41,5 +43,12 @@
         align-items: center;
       }
     }
+  }
+
+  .text-color {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

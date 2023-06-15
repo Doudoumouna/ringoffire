@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-game-info',
@@ -51,7 +51,8 @@ export class GameInfoComponent implements OnInit, OnChanges {
 
   title = '';
   description = '';
-  @Input() card!: string;
+  @Input() card: string;
+
   constructor() {}
 
   ngOnInit(): void {}
