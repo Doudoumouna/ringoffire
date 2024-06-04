@@ -3,6 +3,11 @@ import { Game } from '../../models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
+import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -10,12 +15,36 @@ import { EditPlayerComponent } from '../edit-player/edit-player.component';
 })
 export class GameComponent implements OnInit {
   game: Game = new Game();
+  games!: Observable<any[]>;
+  gameId!: string;
   gameOver = false;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    private route: ActivatedRoute,
+    private firestore: AngularFirestore,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.newGame();
+    this.route.params.subscribe((params) => {
+      console.log(params['id']);
+      this.gameId = params['id'];
+
+      this.firestore
+        .collection('games')
+        .doc(this.gameId)
+        .valueChanges()
+        .subscribe((game: any) => {
+          console.log('Game update', game);
+          this.game.currentPlayer = game.currentPlayer;
+          this.game.playedCards = game.playedCards;
+          this.game.players = game.players;
+          this.game.player_images = game.player_images;
+          this.game.stack = game.stack;
+          this.game.currentCard = game.currentCard;
+        });
+    });
   }
 
   newGame() {
@@ -77,6 +106,9 @@ object. */
   }
 
   saveGame() {
-    // this.firestore.collection('games').doc(this.gameId).update(this.game.toJson());
+    this.firestore
+      .collection('games')
+      .doc(this.gameId)
+      .update(this.game.toJson());
   }
 }
