@@ -18,12 +18,16 @@ export class GameComponent implements OnInit {
   games!: Observable<any[]>;
   gameId!: string;
   gameOver = false;
+  private cardPickAudio: HTMLAudioElement;
 
   constructor(
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
     public dialog: MatDialog
-  ) {}
+  ) {
+    // Audio wird hier Initialisiert
+    this.cardPickAudio = new Audio('/assets/audio/card-pick.mp3');
+  }
 
   ngOnInit(): void {
     this.newGame();
@@ -60,6 +64,10 @@ the `stack` array in the `game` object and assigning it to the `currentCard` pro
 object. */
       this.game.currentCard = this.game.stack.pop() as string;
       this.game.pickCardAnimation = true;
+      // Soundeffekt abspielen
+      this.cardPickAudio.play().catch((error) => {
+        console.error('Error playing audio:', error);
+      });
       console.log('New card: ' + this.game.currentCard);
       console.log('Game is', this.game);
       this.game.currentPlayer++;

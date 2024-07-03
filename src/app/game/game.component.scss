@@ -56,8 +56,18 @@
 }
 .btn-add {
   position: absolute;
-  right: 32px;
+  right: 22px;
   bottom: 32px;
+}
+#addnewplayer,
+p {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  right: 10px;
+  bottom: 60px;
+  color: rgba(230, 20, 202, 0.89);
 }
 
 .pin-bottom {
